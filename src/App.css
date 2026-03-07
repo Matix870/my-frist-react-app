@@ -2,11 +2,9 @@
   position: relative;
   min-height: 100vh;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1rem;
-  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #0b1120 100%);
   background-size: cover;
   background-position: center;
@@ -22,79 +20,84 @@
 .main-card {
   position: relative;
   z-index: 1;
-  width: min(100%, 980px);
+  width: min(100%, 56rem);
+  margin: 4.5rem auto 5.5rem;
   background: rgba(17, 24, 39, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 18px;
+  border-radius: 1rem;
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
-  padding: 2rem;
+  padding: clamp(1rem, 2.5vw, 2rem);
 }
 
 .title {
-  margin: 0 0 1.25rem;
-  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: clamp(1.75rem, 5vw, 3rem);
   line-height: 1.1;
 }
 
 .top-controls {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
   margin-bottom: 1rem;
 }
 
 .control-label {
   display: block;
   margin-bottom: 0.35rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
 
 .control-input,
 .timezone-select {
   width: 100%;
-  font-size: 1rem;
+  font-size: 0.95rem;
   padding: 0.55rem 0.75rem;
-  border-radius: 10px;
+  border-radius: 0.625rem;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background: rgba(15, 23, 42, 0.7);
   color: #ffffff;
 }
 
 .clock-box {
-  margin-top: 1.25rem;
+  margin-top: 1rem;
   text-align: center;
 }
 
 .clock-time {
-  font-size: clamp(2rem, 6vw, 4rem);
+  font-size: clamp(1.7rem, 9vw, 3.75rem);
   letter-spacing: 0.08em;
-  font-family: "Courier New", monospace;
+  font-family: Consolas, "Courier New", monospace;
 }
 
 .clock-zone {
   margin-top: 0.35rem;
   color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
+  font-size: 0.95rem;
+  word-break: break-word;
 }
 
 .profile-card {
   position: fixed;
-  top: 1rem;
-  left: 1rem;
+  top: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 2;
-  width: min(90vw, 270px);
+  width: min(calc(100% - 1.5rem), 22rem);
   background: rgba(15, 23, 42, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 14px;
-  padding: 0.9rem;
+  border-radius: 0.875rem;
+  padding: 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.7rem;
+  align-items: center;
+  gap: 0.65rem;
 }
 
 .avatar-upload {
-  width: 86px;
-  height: 86px;
+  width: 4.75rem;
+  height: 4.75rem;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.12);
   border: 1px dashed rgba(255, 255, 255, 0.4);
@@ -114,10 +117,10 @@
 
 .profile-input {
   width: 100%;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   padding: 0.5rem 0.65rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border-radius: 0.5rem;
   background: rgba(0, 0, 0, 0.2);
   color: #fff;
 }
@@ -126,34 +129,246 @@
 .repo-button {
   position: fixed;
   z-index: 2;
-  border: none;
   border-radius: 999px;
   background: rgba(15, 23, 42, 0.88);
   color: #fff;
-  padding: 0.85rem 1.2rem;
-  font-size: 0.95rem;
+  padding: 0.6rem 0.95rem;
+  font-size: 0.85rem;
   text-decoration: none;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.22);
 }
 
 .focus-button {
-  right: 1rem;
-  bottom: 1rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
 }
 
 .repo-button {
-  left: 1rem;
-  bottom: 1rem;
+  left: 0.75rem;
+  bottom: 0.75rem;
 }
 
-@media (max-width: 768px) {
+.task-list-shell {
+  margin-top: 1rem;
+  border-radius: 0.75rem;
+  padding: 0.85rem;
+  background: rgba(255, 255, 255, 0.94);
+  color: #111827;
+  max-height: min(45vh, 28rem);
+  overflow-y: auto;
+}
+
+.task-list-empty {
+  margin: 0;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.05rem;
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.task-item {
+  width: 100%;
+  border-radius: 0.75rem;
+  padding: 0.8rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.task-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.task-toggle-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  cursor: pointer;
+  flex: 1;
+  min-width: 0;
+}
+
+.task-checkbox {
+  margin-top: 0.35rem;
+}
+
+.task-title {
+  font-size: clamp(1rem, 2.8vw, 1.35rem);
+  overflow-wrap: anywhere;
+}
+
+.task-emoji {
+  margin-right: 0.4rem;
+}
+
+.task-delete-button {
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.45);
+  color: #b91c1c;
+  font-weight: 700;
+  border-radius: 0.55rem;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.42rem 0.55rem;
+}
+
+.task-description {
+  margin: 0.55rem 0 0;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.input-form-section {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+}
+
+.task-input,
+.task-description-input,
+.emoji-custom-input {
+  width: 100%;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(15, 23, 42, 0.75);
+  color: #fff;
+  padding: 0.7rem 0.75rem;
+}
+
+.task-input::placeholder,
+.task-description-input::placeholder,
+.emoji-custom-input::placeholder,
+.profile-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.task-submit-button {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.625rem;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+}
+
+.emoji-picker-row,
+.color-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
+}
+
+.row-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.emoji-list,
+.color-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.emoji-button {
+  border-radius: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(15, 23, 42, 0.75);
+  color: #fff;
+  padding: 0.35rem 0.55rem;
+  font-size: 1.2rem;
+}
+
+.emoji-button.is-active {
+  border-color: #60a5fa;
+  transform: translateY(-1px);
+}
+
+.color-dot {
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  border: 2px solid transparent;
+}
+
+.color-dot.is-selected {
+  border-color: #111827;
+  transform: scale(1.08);
+}
+
+@media (min-width: 640px) {
+  .task-form {
+    grid-template-columns: 1fr auto;
+  }
+
+  .task-submit-button {
+    min-width: 7rem;
+  }
+
+  .emoji-picker-row,
+  .color-row {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 0.75rem;
+  }
+
+  .emoji-custom-input {
+    max-width: 10rem;
+  }
+
+  .top-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 992px) {
   .app-shell {
-    padding: 1rem;
+    padding: 2rem;
+  }
+
+  .profile-card {
+    top: 1rem;
+    left: 1rem;
+    transform: none;
+    width: min(22rem, calc(100% - 2rem));
+    align-items: stretch;
   }
 
   .main-card {
-    padding: 1rem;
-    margin-top: 5.5rem;
+    margin: 2rem auto;
+  }
+
+  .focus-button,
+  .repo-button {
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .focus-button {
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .repo-button {
+    left: 1rem;
+    bottom: 1rem;
   }
 }
