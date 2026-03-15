@@ -4,7 +4,7 @@ function TaskList({ tasks, onDeleteTask, onToggleTask }) {
   return (
     <section className="task-list-shell">
       {tasks.length === 0 ? (
-        <p className="task-list-empty">Brak zadan. Dodaj cos!</p>
+        <p className="task-list-empty">Brak zadań. Dodaj coś!</p>
       ) : (
         <ul className="task-list">
           {tasks.map((task) => (

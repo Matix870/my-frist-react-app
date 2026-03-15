@@ -10,8 +10,6 @@ const TIME_ZONES = [
   { label: "Tokio", value: "Asia/Tokyo" },
 ];
 
-const REPO_URL = "https://github.com/Matix870/my-frist-react-app-todo-list";
-
 function App() {
   const localTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -22,7 +20,7 @@ function App() {
   const [selectedTimeZone, setSelectedTimeZone] = useState("local");
 
   const [avatarImage, setAvatarImage] = useState(null);
-  const [username, setUsername] = useState("Uzytkownik");
+  const [username, setUsername] = useState("Użytkownik");
   const [status, setStatus] = useState("");
 
   const [isFocusMode, setIsFocusMode] = useState(false);
@@ -159,7 +157,7 @@ function App() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="profile-input"
-            placeholder="Nazwa uzytkownika"
+            placeholder="Nazwa użytkownika"
           />
           <input
             type="text"
@@ -172,12 +170,12 @@ function App() {
       )}
 
       <main className="main-card">
-        <h1 className="title">Lista zadan</h1>
+        <h1 className="title">Lista zadań</h1>
 
         <div className="top-controls">
           <div>
             <label className="control-label" htmlFor="bg-upload">
-              Tlo (obraz):
+              Tło (obraz):
             </label>
             <input
               id="bg-upload"
@@ -230,17 +228,12 @@ function App() {
       </main>
 
       <button className="focus-button" onClick={toggleFocusMode}>
-        {isFocusMode ? "Wylacz tryb skupienia" : "Tryb skupienia"}
+        {isFocusMode ? "Wyłącz tryb skupienia" : "Tryb skupienia"}
       </button>
 
-      <a
-        className="repo-button"
-        href={REPO_URL}
-        target="_blank"
-        rel="noreferrer"
-      >
-        Repozytorium
-      </a>
+      <button className="repo-button" type="button">
+        Wyślij listę
+      </button>
     </div>
   );
 }

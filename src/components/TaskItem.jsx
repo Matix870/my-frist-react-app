@@ -38,7 +38,7 @@ const TaskItem = ({ task, onDelete, onToggle }) => {
           <button
             onClick={() => onDelete(task.id)}
             className="task-delete-button"
-            title="Usun zadanie"
+            title="Usuń zadanie"
             type="button"
           >
             X

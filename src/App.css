@@ -21,7 +21,7 @@
   position: relative;
   z-index: 1;
   width: min(100%, 56rem);
-  margin: 4.5rem auto 5.5rem;
+  margin: 1.5rem auto 3rem;
   background: rgba(17, 24, 39, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 1rem;
@@ -79,12 +79,10 @@
 }
 
 .profile-card {
-  position: fixed;
-  top: 0.75rem;
-  left: 50%;
-  transform: translateX(-50%);
+  position: relative;
+  margin: 0 auto 1rem;
   z-index: 2;
-  width: min(calc(100% - 1.5rem), 22rem);
+  width: min(100%, 26rem);
   background: rgba(15, 23, 42, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 0.875rem;
@@ -286,6 +284,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
+  min-width: 0;
 }
 
 .emoji-button {
@@ -325,13 +324,14 @@
 
   .emoji-picker-row,
   .color-row {
-    grid-template-columns: auto 1fr;
-    align-items: center;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
     column-gap: 0.75rem;
   }
 
   .emoji-custom-input {
-    max-width: 10rem;
+    width: 100%;
+    max-width: 11rem;
   }
 
   .top-controls {
@@ -339,21 +339,22 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   .app-shell {
     padding: 2rem;
   }
 
   .profile-card {
+    position: fixed;
     top: 1rem;
     left: 1rem;
-    transform: none;
+    margin: 0;
     width: min(22rem, calc(100% - 2rem));
     align-items: stretch;
   }
 
   .main-card {
-    margin: 2rem auto;
+    margin: 2rem auto 4rem;
   }
 
   .focus-button,

@@ -2,8 +2,8 @@ import { useState } from "react";
 
 const COLORS = [
   { name: "Czerwony", value: "#f97316" },
-  { name: "Pomaranczowy", value: "#f59e0b" },
-  { name: "Zolty", value: "#eab308" },
+  { name: "Pomarańczowy", value: "#f59e0b" },
+  { name: "Żółty", value: "#eab308" },
   { name: "Zielony", value: "#22c55e" },
   { name: "Niebieski", value: "#3b82f6" },
 ];
@@ -52,7 +52,7 @@ function InputForm({ onAddTask, selectedColor, onColorChange }) {
 
       <div className="emoji-picker-row">
         <span className="row-label">Ikona:</span>
-        <div className="emoji-list" role="group" aria-label="Wybierz ikone zadania">
+        <div className="emoji-list" role="group" aria-label="Wybierz ikonę zadania">
           {EMOJIS.map((emojiValue) => (
             <button
               key={emojiValue}
@@ -68,7 +68,7 @@ function InputForm({ onAddTask, selectedColor, onColorChange }) {
           type="text"
           value={emoji}
           onChange={(e) => setEmoji(e.target.value.slice(0, 2))}
-          placeholder="lub wpisz"
+          placeholder="lub wpisz ikonę"
           className="emoji-custom-input"
         />
       </div>
