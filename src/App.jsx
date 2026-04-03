@@ -24,6 +24,7 @@ function App() {
   const [status, setStatus] = useState("");
 
   const [isFocusMode, setIsFocusMode] = useState(false);
+  const [shareNote, setShareNote] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -116,6 +117,67 @@ function App() {
       return next;
     });
   };
+
+  const buildShareText = () => {
+    const header = `Lista zadań${username ? ` — ${username}` : ""}`;
+    const statusLine = status ? `Status: ${status}` : "";
+    const pending = tasks.filter((task) => !task.completed);
+    const done = tasks.filter((task) => task.completed);
+
+    const formatTask = (task) => {
+      const emoji = task.emoji ? `${task.emoji} ` : "";
+      const description = task.description ? ` — ${task.description}` : "";
+      return `${emoji}${task.text}${description}`;
+    };
+
+    const lines = [
+      header,
+      statusLine,
+      "",
+      "Do zrobienia:",
+      ...(pending.length
+        ? pending.map((task, index) => `${index + 1}. ${formatTask(task)}`)
+        : ["(brak)"]),
+      "",
+      "Zrobione:",
+      ...(done.length
+        ? done.map((task, index) => `${index + 1}. ${formatTask(task)}`)
+        : ["(brak)"]),
+    ];
+
+    return lines.filter(Boolean).join("\n");
+  };
+
+  const handleShareList = async () => {
+    const shareText = buildShareText();
+    const title = "Lista zadań";
+
+    try {
+      if (navigator.share) {
+        await navigator.share({ title, text: shareText });
+        setShareNote("Lista została udostępniona.");
+        return;
+      }
+
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareText);
+        setShareNote("Lista skopiowana do schowka.");
+        return;
+      }
+
+      setShareNote("Nie udało się udostępnić listy na tym urządzeniu.");
+    } catch (error) {
+      setShareNote("Udostępnianie zostało przerwane.");
+    }
+  };
+
+  useEffect(() => {
+    if (!shareNote) {
+      return undefined;
+    }
+    const timer = setTimeout(() => setShareNote(""), 3000);
+    return () => clearTimeout(timer);
+  }, [shareNote]);
 
   const displayTimeZone =
     selectedTimeZone === "local" ? localTimeZone : selectedTimeZone;
@@ -225,15 +287,19 @@ function App() {
             </div>
           )}
         </div>
+
+        {shareNote ? <p className="share-note">{shareNote}</p> : null}
+
+        <div className="action-bar">
+          <button className="focus-button" onClick={toggleFocusMode}>
+            {isFocusMode ? "Wyłącz tryb skupienia" : "Tryb skupienia"}
+          </button>
+
+          <button className="repo-button" type="button" onClick={handleShareList}>
+            Wyślij listę
+          </button>
+        </div>
       </main>
-
-      <button className="focus-button" onClick={toggleFocusMode}>
-        {isFocusMode ? "Wyłącz tryb skupienia" : "Tryb skupienia"}
-      </button>
-
-      <button className="repo-button" type="button">
-        Wyślij listę
-      </button>
     </div>
   );
 }
